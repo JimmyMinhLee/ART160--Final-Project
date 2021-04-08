@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2299982934850568679}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.664, y: -0.069, z: 0}
+  m_LocalPosition: {x: -1.664, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2838739410840625986}
@@ -181,6 +181,8 @@ MonoBehaviour:
   grounded: 0
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+  facingLeft: 1
+  facingRight: 0
 --- !u!114 &9037033059885609664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,3 +198,4 @@ MonoBehaviour:
   startTimeBetweenAttacks: 0.3
   attackPosition: {fileID: 7475543535202956976}
   attackRange: 1.2
+  attack: {fileID: 0}
