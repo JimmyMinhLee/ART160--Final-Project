@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     { 
-        Vector2 movementVector = new Vector2(Input.GetAxis("Horizontal"), 0);
+        Vector2 movementVector = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
         TurnAround(movementVector); 
         Move(movementVector);
 
