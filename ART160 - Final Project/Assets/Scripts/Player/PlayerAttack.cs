@@ -8,18 +8,24 @@ public class PlayerAttack : MonoBehaviour
     private float timeBetweenAttacks = 0;
     public float startTimeBetweenAttacks;
     public Transform attackPosition;
-    public float attackRange;
+    public float attackRadius;
 
+    public Animator playerAnimator;
+
+    private void Start()
+    {
+        playerAnimator = GetComponent<Animator>(); 
+    }
     // Update is called once per frame
     void Update()
     {
         if (timeBetweenAttacks <= 0)
         {
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                // Attack
-                Debug.Log("Player just tried to attack");
-                Collider2D[] thingsToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange);
+                Debug.Log("Pressed attack button");
+                playerAnimator.SetTrigger("attackTrigger"); 
+                Collider2D[] thingsToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRadius);
 
                 for (int i = 0; i < thingsToDamage.Length; i++ )
                 {
@@ -30,12 +36,10 @@ public class PlayerAttack : MonoBehaviour
                     }
                 }
             }
-
             timeBetweenAttacks = startTimeBetweenAttacks;
         }
 
         else
-
         {
             timeBetweenAttacks -= Time.deltaTime; 
         }
@@ -44,6 +48,6 @@ public class PlayerAttack : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPosition.position, attackRange); 
+        Gizmos.DrawWireSphere(attackPosition.position, attackRadius); 
     }
 }

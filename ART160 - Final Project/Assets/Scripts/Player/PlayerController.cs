@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool facingLeft = true;
     public bool facingRight = false;
 
+    public Animator playerAnimator; 
     #endregion 
 
     #region General Behavior Loop
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>(); 
 
     }
 
