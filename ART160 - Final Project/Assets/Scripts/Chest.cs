@@ -11,9 +11,14 @@ public class Chest : MonoBehaviour
     public string chestText;
     private bool interactable = false;
     public List<Item> itemsContained;
-    public GameObject player; 
+    public GameObject player;
+    Animator chestAnimator;
 
 
+    private void Start()
+    {
+        chestAnimator = GetComponent<Animator>(); 
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -33,7 +38,12 @@ public class Chest : MonoBehaviour
             {
                 dialogueBox.SetActive(false);
             }
-            // Player is no longer in talking range of the NPC 
+            // Player is no longer in talking range of the NPC
+
+        if (chestAnimator.GetBool("isOpen") == true)
+            {
+                chestAnimator.SetBool("isOpen", false);
+            }
         }
     }
 
@@ -43,6 +53,8 @@ public class Chest : MonoBehaviour
         {
             if (dialogueBox.activeInHierarchy == false)
             {
+                Debug.Log("opening chest"); 
+                chestAnimator.SetBool("isOpen", true); 
                 dialogueText.text = chestText;
                 dialogueBox.SetActive(true);
                 PlayerInventory inventory = player.GetComponent<PlayerInventory>();

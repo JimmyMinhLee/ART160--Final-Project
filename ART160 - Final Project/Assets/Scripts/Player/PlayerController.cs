@@ -6,10 +6,16 @@ public class PlayerController : MonoBehaviour
 {
 
     #region Movement Variables
+    public Rigidbody2D playerRB;
 
     public float movementSpeed = 5f; // 5 by default
+
+    public float dashSpeed = 7f;
+    public float timeBetweenLastDash = 0f;
+    public float timeBetweenDashes = 3f;
+
+
     public float jumpForce = 7f;
-    public Rigidbody2D playerRB;
     public bool grounded;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
@@ -40,26 +46,21 @@ public class PlayerController : MonoBehaviour
         TurnAround(movementVector); 
         Move(movementVector);
 
+        if (Input.GetKeyDown(KeyCode.T) && timeBetweenLastDash <= 0)
+        {
+            Dash();
+            timeBetweenLastDash = timeBetweenDashes; 
+        }
+
         if (Input.GetButtonDown("Jump") && grounded)
         {
             Jump();
 
             grounded = false; 
         }
+
         SmoothenJump();
-    }
-
-    private void FixedUpdate()
-    {
-        if (facingRight)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-
-        if (facingLeft)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
+        timeBetweenLastDash -= Time.deltaTime; 
     }
 
 
@@ -78,7 +79,6 @@ public class PlayerController : MonoBehaviour
 
     private void Move(Vector2 directionVector)
     {
-        TurnAround(directionVector);
         playerRB.velocity = new Vector2(directionVector.x * movementSpeed, playerRB.velocity.y);
     }
 
@@ -115,6 +115,21 @@ public class PlayerController : MonoBehaviour
             facingLeft = true;
             facingRight = false; 
         }
+
+        if (facingRight)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+
+        if (facingLeft)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+
+    private void Dash()
+    {
+        playerRB.velocity = new Vector2(playerRB.velocity.x * dashSpeed, playerRB.velocity.y);
     }
 
     #endregion 
