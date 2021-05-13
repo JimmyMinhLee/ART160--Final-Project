@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Inventory
+    public GameObject playerInventory;
+    #endregion
 
     #region Movement Variables
     public Rigidbody2D playerRB;
+    public float playerHealth;
+    public bool isDead;
 
     public float movementSpeed = 5f; // 5 by default
 
-    public float dashSpeed = 7f;
+    public float dashSpeed = 15f;
     public float timeBetweenLastDash = 0f;
-    public float timeBetweenDashes = 3f;
+    public float timeBetweenDashes = 0f;
 
 
     public float jumpForce = 7f;
     public bool grounded;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
+
+    public float horizontalThrust = 55f;
+    public float verticalThrust = 10f;
+
+    public GameObject startButton;
+    public GameObject quitButton; 
 
     #endregion
 
@@ -41,26 +52,48 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update()
-    { 
-        Vector2 movementVector = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
-        TurnAround(movementVector); 
-        Move(movementVector);
+    {
+        // Checking for inputs
 
-        if (Input.GetKeyDown(KeyCode.T) && timeBetweenLastDash <= 0)
+        if (!isDead)
         {
-            Dash();
-            timeBetweenLastDash = timeBetweenDashes; 
+            Vector2 movementVector = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
+            if (movementVector == Vector2.zero)
+            {
+                playerAnimator.SetBool("isWalking", false);
+            }
+            TurnAround(movementVector);
+            Move(movementVector);
+
+            if (Input.GetKeyDown(KeyCode.T) && timeBetweenLastDash <= 0)
+            {
+                Debug.Log("Attemping to dash");
+                Dash(movementVector);
+                timeBetweenLastDash = timeBetweenDashes;
+            }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                InteractWithInventory();
+            }
+
+            if (Input.GetButtonDown("Jump") && grounded)
+            {
+                Jump();
+
+                grounded = false;
+            }
+
+            SmoothenJump();
+            timeBetweenLastDash -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump") && grounded)
+        else if (isDead)
         {
-            Jump();
-
-            grounded = false; 
+            // Display restart level button
+            playerAnimator.SetBool("isDead", true); 
         }
 
-        SmoothenJump();
-        timeBetweenLastDash -= Time.deltaTime; 
     }
 
 
@@ -80,6 +113,15 @@ public class PlayerController : MonoBehaviour
     private void Move(Vector2 directionVector)
     {
         playerRB.velocity = new Vector2(directionVector.x * movementSpeed, playerRB.velocity.y);
+        if (directionVector == Vector2.zero)
+        {
+            playerAnimator.SetBool("isWalking", false); 
+        }
+
+        else
+        {
+            playerAnimator.SetBool("isWalking", true);
+        }
     }
 
     private void Jump()
@@ -127,9 +169,50 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Dash()
+    private void Dash(Vector2 directionVector)
     {
+        playerAnimator.SetTrigger("rollTrigger");
         playerRB.velocity = new Vector2(playerRB.velocity.x * dashSpeed, playerRB.velocity.y);
+        // playerRB.velocity = new Vector2(directionVector.x * dashSpeed, playerRB.velocity.y);
+    }
+
+    private void InteractWithInventory()
+    {
+        if (playerInventory.activeInHierarchy)
+        {
+            playerInventory.SetActive(false); 
+        }
+
+        else
+        {
+            playerInventory.SetActive(true);
+        }
+    }
+
+    public void TakeDamage(float attackDamage, float enemyX)
+    {
+        playerHealth -= attackDamage;
+        // To the right
+        playerRB.velocity = Vector3.zero;
+        playerRB.angularVelocity = 0; 
+        if (enemyX > transform.position.x)
+        {
+            playerRB.AddForce(new Vector3(-1 * horizontalThrust, 1 * verticalThrust, 0), ForceMode2D.Impulse);
+
+        }
+
+        else if (enemyX < transform.position.x)
+        {
+            playerRB.AddForce(new Vector3(1 * horizontalThrust, 1 * verticalThrust, 0), ForceMode2D.Impulse);
+        }
+
+        if (playerHealth <= 0)
+        {
+            isDead = true;
+
+            startButton.SetActive(true);
+            quitButton.SetActive(true); 
+        }
     }
 
     #endregion 

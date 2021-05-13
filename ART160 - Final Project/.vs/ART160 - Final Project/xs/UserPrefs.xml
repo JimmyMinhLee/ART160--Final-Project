@@ -1,13 +1,12 @@
 ﻿<Properties StartupConfiguration="{80EFB742-31EE-2950-81A0-77A7C2B89DB2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy/Enemy.cs">
     <Files>
-      <File FileName="Assets/Scripts/Chest.cs" Line="57" Column="56" />
-      <File FileName="Assets/Scripts/Player/PlayerInventory.cs" />
-      <File FileName="Assets/Scripts/Item.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Portal.cs" Line="22" Column="6" />
-      <File FileName="Assets/Scripts/FloatingText.cs" />
-      <File FileName="Assets/Scripts/Player/PlayerController.cs" Line="60" Column="10" />
-      <File FileName="Assets/Scripts/Player/PlayerAttack.cs" Line="10" Column="37" />
+      <File FileName="Assets/Scripts/NPC/NPC.cs" Line="45" Column="39" />
+      <File FileName="Assets/Scripts/NPC/Chest.cs" />
+      <File FileName="Assets/Scripts/Player/PlayerController.cs" Line="211" Column="27" />
+      <File FileName="Assets/Scripts/Enemy/Enemy.cs" Line="84" Column="55" />
+      <File FileName="Assets/Scripts/NextSceneTransition.cs" />
+      <File FileName="Assets/Scripts/Player/PlayerAttack.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,11 +14,11 @@
           <Node name="ART160 - Final Project" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Enemy" expanded="True" />
-                <Node name="NPC" expanded="True" />
-                <Node name="Player" expanded="True">
-                  <Node name="PlayerController.cs" selected="True" />
+                <Node name="Enemy" expanded="True">
+                  <Node name="Enemy.cs" selected="True" />
                 </Node>
+                <Node name="NPC" expanded="True" />
+                <Node name="Player" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -29,7 +28,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="10a6af68-6adc-4162-8545-b7337e410cda" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="9852d581-b3e8-4d18-bb5d-ee32bfdcd92b" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

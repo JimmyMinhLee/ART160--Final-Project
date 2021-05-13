@@ -8,8 +8,11 @@ public class NPC : MonoBehaviour
 
     public GameObject dialogueBox;
     public TextMeshProUGUI dialogueText;
-    public string NPCText; 
-    private bool interactable = false; 
+    private bool interactable = false;
+
+    public List<string> NPCTexts;
+    public int currentTextToDisplay = 0;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -38,9 +41,25 @@ public class NPC : MonoBehaviour
         {
             if (dialogueBox.activeInHierarchy == false)
             {
-                dialogueText.text = NPCText;
-                dialogueBox.SetActive(true); 
+                dialogueBox.SetActive(true);
+                dialogueText.text = NPCTexts[currentTextToDisplay]; 
             }
+        }
+
+        if (dialogueBox.activeInHierarchy == true & Input.GetKeyDown(KeyCode.G))
+        {
+            if (currentTextToDisplay == NPCTexts.Count - 1)
+            {
+                currentTextToDisplay = 0;
+                dialogueBox.SetActive(false); 
+            }
+
+            else
+            {
+                currentTextToDisplay += 1;
+                dialogueText.text = NPCTexts[currentTextToDisplay];
+            }
+
         }
     }
 }

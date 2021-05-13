@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Testing Scene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Loading.unity
+    guid: 608a032ffc1b949c48e10419def334cb
+  - enabled: 1
+    path: Assets/Scenes/Field Scene.unity
+    guid: d69cc90f4148142e9b8042d577abd560
+  - enabled: 1
+    path: Assets/Scenes/Field to Chateau.unity
+    guid: c42a80730027d4d22a9401e0c12907b6
+  - enabled: 1
+    path: Assets/Scenes/Chateau.unity
+    guid: ea1cdf43426064dbd87f10966e1b3eb1
+  - enabled: 1
+    path: Assets/Scenes/Development.unity
+    guid: 76984ce364b674ebbb47587c1bf45a83
   m_configObjects: {}

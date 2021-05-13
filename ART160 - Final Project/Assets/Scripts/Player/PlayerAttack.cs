@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
                     if (thingsToDamage[i].gameObject.tag == "Enemy")
                     {
                         Debug.Log("Hit something!"); 
-                        thingsToDamage[i].GetComponent<Enemy>().TakeDamage(attackDamage); 
+                        thingsToDamage[i].GetComponent<Enemy>().TakeDamage(attackDamage, transform.position.x); 
                     }
                 }
             }
